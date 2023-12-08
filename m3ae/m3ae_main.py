@@ -261,7 +261,8 @@ def main(argv):
             persistent_workers=True,
         )
 
-    steps_per_epoch = int(len(dataset) / FLAGS.batch_size)
+    # steps_per_epoch = int(len(dataset) / FLAGS.batch_size)
+    steps_per_epoch = 1
     total_steps = steps_per_epoch * FLAGS.epochs
 
     if FLAGS.discretized_image:
@@ -281,6 +282,11 @@ def main(argv):
         image_output_dim=image_output_dim
     )
 
+    # steps_per_epoch * FLAGS.epochs
+    # print("total_steps:  " + str(total_steps))
+    # print("steps_per_epoch:  " + str(steps_per_epoch))
+    # print("FLAGS.epochs:  " + str(FLAGS.epochs))
+    # print("FLAGS.accumulate_grad_steps: " + str(FLAGS.accumulate_grad_steps))
     learning_rate = optax.warmup_cosine_decay_schedule(
         init_value=FLAGS.lr_init_value * lr_scale,
         peak_value=FLAGS.lr_peak_value * lr_scale,
