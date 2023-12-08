@@ -2,10 +2,10 @@ import threading
 from io import BytesIO
 from queue import Queue
 
-import gcsfs
-import h5py
+# import gcsfs
+# import h5py
 import numpy as np
-import skimage.io
+# import skimage.io
 import torch
 import torchvision
 import transformers
@@ -166,6 +166,8 @@ class ImageTextDataset(torch.utils.data.Dataset):
         return deterministic_drop or random_drop
 
     def __getitem__(self, raw_index):
+
+        # get the audio
         index = self.process_index(raw_index)
         with BytesIO(self.h5_file["jpg"][index]) as fin:
             image = skimage.io.imread(fin)
